@@ -1,20 +1,30 @@
-Ponte H
+Ponte H - é possível que iremos usar uma ponte h imprestada
+na inovação que aguenta motores mais potentes como o de parabrisa.
 
 Rapberry PI
 
-Rodas - a definir, pois não sabemos o tamanho dele.
+Totens - eles serão essenciais para localização do nosso robô.
+
+Câmera - É algo que podemos pegar emprestado na inovação para
+detectar os Totens.
+
+Sensor ultra sônico - O possível que seja necessários para
+que o robô não bata na parede.
+
+Roda boba - casa escolhermos um robô com duas rodas giratórias
+traseiras nós iremos precisar de uma. Na inovação podemos pegar
+uma emprestada.
+
+Rodas - a definir, pois não sabemos o tamanho delas.
+
+Motor de para brisa elétrico - Se possível, usamos isso
+para aumentar a capacidade de carga do robô. Melhor tentar
+pegar um no ferro velho.
 
 Carcaça - A definir, pois não sabemos o tamanho do robô.
 Importante também dizer que ainda devemos escolher se 
 vamos usar uma carcaça pronta já comprada ou se vamos fazer
 com impressão 3d.
 
-
-
-Até então esses são os materiais que eu Gabriel imagino com
-certeza que iremos usar, mas vocês podem ir pesquisando e 
-dizendo quais outros materiais são uteis e também informem
-o modelo, marca e preço. Não coloquei porque temos outras 
-coisas mais importantes do TCC para pensar.
 
 

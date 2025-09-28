@@ -1,7 +1,7 @@
-O objetivo desse documento é listar todas as técnologias
-que podemos usar afim de fazer o robô andar sem a necessidade
-de uma linha.
-
+Neste documento foquem apenas na parte que fala sobre pigpio, pois
+ela é a biblioteca para usar entradas e saídas do Raspberry. Pode ser
+interessante a parte de cameras e correção erros deste documento, vale
+a pena conferir.
 
 📌 Roteiro de Aprendizado em C para Localização no Robô
 🔹 Semana 1 — Fundamentos no Raspberry Pi em C
