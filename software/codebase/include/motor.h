@@ -1,36 +1,39 @@
 #ifndef MOTOR_H
 #define MOTOR_H
 
-#include <stdio.h>
-
 #define RANGE 100
-#define PWM 3
-#define PIN_1
-#define PIN_1
-#define LARGE                                                                  \
-  10 // isso a distancia de uma roda até a outra, isso deve ser adaptado para
-     // realidade;
+#define PWM 2
+#define PIN_1 0
+#define PIN_2 1
+#define LARGE 10 // LARGE e a distancia de uma roda até a outra
+#define MAX_V 0.47645f
+#define SECOND 1000000
 
 #ifdef __cplusplus
 extern "C" { // para compatibilidade com o C++
 #endif
 
-const double real_max_velocity = 0.47645;
+/* Os membros left_motor e right_motor contem o numero
+ * de dos pinos que ligam na ponte H onde cada indice
+ * do vetor tem usa função explicada pelos macros PIN_1
+ * PIN_2 e PWM
+ */
 
 struct motor {
 
   unsigned short int direction;
-  unsigned int
-      left_motor[2]; // left_motor e right_motor são os pinos que ligam o motor
-  unsigned int right_motor[2]; // na ponte h, sendo dois para define direção e
-                               // uma para pwm
+  unsigned int left_motor[3];
+  unsigned int right_motor[3];
   unsigned int theta;
-  unsigned int velocity; // o pwm a ser usado nos moteres
+  unsigned int velocity;
+  unsigned int second_time;
 } typedef motor;
 
-void spin(const motor user_motor);
+int spin(motor user_motor);
 
-void motors_stop(const motor user_motor);
+void motors_stop(motor user_motor);
+
+int forward(motor user_motor);
 
 #ifdef __cplusplus
 }
