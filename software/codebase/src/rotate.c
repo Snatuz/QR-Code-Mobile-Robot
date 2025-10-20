@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
+
 static void left(motor user_motor);
 static void rigth(motor user_motor);
 static long int time_spin(motor user_motor);
