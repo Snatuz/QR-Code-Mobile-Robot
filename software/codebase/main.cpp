@@ -6,48 +6,53 @@
 int main(void) {
     motor the_motors;
 
-    // Configuração dos pinos (ajuste conforme seu hardware)
-    the_motors.left_motor[PIN_1] = 3;
-    the_motors.left_motor[PIN_2] = 5;
-    the_motors.left_motor[PWM]   = 7;
+    // CONFIGURAÃ‡ÃƒO DOS PINOS (ajuste conforme seu hardware)
+    the_motors.left_motor[PIN_1] = 2;
+    the_motors.left_motor[PIN_2] = 3;
+    the_motors.left_motor[PWM]   = 12;
 
-    the_motors.right_motor[PIN_1] = 11;
-    the_motors.right_motor[PIN_2] = 13;
-    the_motors.right_motor[PWM]   = 15;
+    the_motors.right_motor[PIN_1] = 27;
+    the_motors.right_motor[PIN_2] = 17;
+    the_motors.right_motor[PWM]   = 13;
 
     if (gpioInitialise() < 0) {
         std::cerr << "Erro ao inicializar GPIO" << std::endl;
         return 1;
     }
 
-    // Define pinos como saída
+    gpioSetPWMrange(user_motor.left_motor[PWM], RANGE);
+    gpioSetPWMrange(user_motor.right_motor[PWM], RANGE); // setando o range do PWM para 100.
+    
+    // DEFINIÃ‡Ã•ES DE ENTRADAS E SAÃDAS 
+    gpioSetMode(2, PI_OUTPUT);
     gpioSetMode(3, PI_OUTPUT);
-    gpioSetMode(5, PI_OUTPUT);
-    gpioSetMode(7, PI_OUTPUT);
-    gpioSetMode(11, PI_OUTPUT);
+    gpioSetMode(12, PI_OUTPUT);
     gpioSetMode(13, PI_OUTPUT);
-    gpioSetMode(15, PI_OUTPUT);
+    gpioSetMode(17, PI_OUTPUT);
+    gpioSetMode(27, PI_OUTPUT);
 
-    // Parâmetros de movimento
+    // ParÃ¢metros de movimento
     the_motors.velocity = 60;  // entre 0 e RANGE
     the_motors.theta = 90;     // giro de 90 graus
-    the_motors.direction = 1;  // 1 = direita (padrão)
-
+    the_motors.direction = 1;  // 1 = direita (padrÃ£o)
+    the_motors.ftime = 2 * SECOND; // anda por dois segundos
+    
     for (int i = 0; i < 4; i++) {
         std::cout << "Lado " << i + 1 << std::endl;
 
         // Anda para frente
         forward(the_motors);
-        usleep(2 * SECOND); // ajusta para o tamanho do lado desejado (2s = ~distância de um lado)
+        usleep(100000); 
         motors_stop(the_motors);
 
-        // Gira 90 graus à direita
+        // Gira 90 graus Ã  direita
         spin(the_motors);
     }
 
     motors_stop(the_motors);
     gpioTerminate();
-    std::cout << "Trajeto concluído!" << std::endl;
+    std::cout << "Trajeto concluÃ­do!" << std::endl;
 
     return 0;
 }
+
