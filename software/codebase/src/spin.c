@@ -1,5 +1,4 @@
 #include "motor.h"
-#include <math.h>
 #include <pigpio.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -19,7 +18,6 @@ int spin(motor user_motor) {
 
   motors_stop(user_motor);
  
-
   if (user_motor.direction == 1)
     rigth(user_motor);
   else // quando direction é 1, significa que o robo vai virar para direita.
@@ -30,6 +28,9 @@ int spin(motor user_motor) {
 
   return 0;
 }
+
+
+//funções right (escrito rigth errôneamente) e left abaixo.
 
 static void left(motor user_motor) {
 
@@ -53,10 +54,11 @@ static long int time_spin(const motor user_motor) {
 
   int time;
 
-  // isso calcula o tempo necessário para girar o angulo informado
+  // isso calcula o tempo necessário para girar o angulo informado.
+  // o calculo de "time" veio de uma formula deduzida manualmente. As infos inseridas apenas substituem as variaveis encontradas.
 
   time = (int)((user_motor.theta * LARGE) / (user_motor.velocity * 2 * MAX_V) *
-               pow(10, 6));
+               SECOND);
   usleep(time);
 
   return time;
