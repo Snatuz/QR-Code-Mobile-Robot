@@ -13,7 +13,7 @@ int spin(motor user_motor) {
 
   if (user_motor.velocity > RANGE) {
 
-    printf("Este valor e maior que o maximo");
+    printf("O valor de velocidade escolhido e maior do que o valor maximo determinado.");
     return 1;
   }
 
@@ -36,8 +36,8 @@ static void left(motor user_motor) {
   gpioWrite(user_motor.left_motor[PIN_2], 1);
   gpioPWM(user_motor.left_motor[PWM], user_motor.velocity);
 
-  gpioWrite(user_motor.left_motor[PIN_1], 1);
-  gpioPWM(user_motor.left_motor[PWM], user_motor.velocity);
+  gpioWrite(user_motor.right_motor[PIN_1], 1);
+  gpioPWM(user_motor.right_motor[PWM], user_motor.velocity);
 }
 
 static void rigth(const motor user_motor) {
@@ -45,8 +45,8 @@ static void rigth(const motor user_motor) {
   gpioWrite(user_motor.left_motor[PIN_1], 1);
   gpioPWM(user_motor.left_motor[PWM], user_motor.velocity);
 
-  gpioWrite(user_motor.left_motor[PIN_2], 1);
-  gpioPWM(user_motor.left_motor[PWM], user_motor.velocity);
+  gpioWrite(user_motor.right_motor[PIN_2], 1);
+  gpioPWM(user_motor.right_motor[PWM], user_motor.velocity);
 }
 
 static long int time_spin(const motor user_motor) {
