@@ -26,7 +26,7 @@ struct motor {
   unsigned int right_motor[3];
   unsigned int theta;
   unsigned int velocity;
-  unsigned int second_time;
+  unsigned int ftime; //define quanto tempo andar pra frente
 } typedef motor;
 
 int spin(motor user_motor);
