@@ -18,8 +18,7 @@ int spin(motor user_motor) {
   }
 
   motors_stop(user_motor);
-  gpioSetPWMrange(user_motor.left_motor[PWM], RANGE);
-  gpioSetPWMrange(user_motor.right_motor[PWM], RANGE);
+ 
 
   if (user_motor.direction == 1)
     rigth(user_motor);
