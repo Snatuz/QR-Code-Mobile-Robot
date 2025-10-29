@@ -1,5 +1,5 @@
-#ifndef MOTOR_H
-#define MOTOR_H
+#ifndef motor_HPP
+#define motor_HPP
 
 #define RANGE 100
 #define PWM 2
@@ -8,10 +8,6 @@
 #define LARGE 10 // LARGE e a distancia de uma roda até a outra
 #define MAX_V 0.47645f
 #define SECOND 1000000
-
-#ifdef __cplusplus
-extern "C" { // para compatibilidade com o C++
-#endif
 
 /* Os membros left_motor e right_motor contem o numero
  * de dos pinos que ligam na ponte H onde cada indice
@@ -26,7 +22,7 @@ struct motor {
   unsigned int right_motor[3];
   unsigned int theta;
   unsigned int velocity;
-  unsigned int ftime; //define quanto tempo andar pra frente
+  unsigned int ftime; // define quanto tempo andar pra frente
 } typedef motor;
 
 int spin(motor user_motor);
@@ -34,9 +30,5 @@ int spin(motor user_motor);
 void motors_stop(motor user_motor);
 
 int forward(motor user_motor);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif
