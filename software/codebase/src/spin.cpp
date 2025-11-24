@@ -1,65 +1,97 @@
 #include "motor.hpp"
 #include <pigpio.h>
-#include <stdio.h>
+#include <iostream>
 #include <unistd.h>
 
-static void left(motor user_motor);
-static void rigth(motor user_motor);
-static long int time_spin(motor user_motor);
+int distance_counter = 0;
 
-int spin(motor user_motor) {
+void spin_start(){
+    gpioPWM(EN1, 500);
+    gpioPWM(EN2, 500);
+    usleep(200000);
+    gpioPWM(EN1, 400);
+    gpioPWM(EN2, 400);
+    usleep(100000);
+    gpioPWM(EN1, 300);//pwm finais a serem testados empiricamente
+    gpioPWM(EN2, 300);
+}
 
-  if (user_motor.velocity > RANGE) {
 
-    printf("O valor de velocidade escolhido e maior do que o valor maximo "
-           "determinado.");
-    return 1;
+int spin (int angle) {
+  
+  stop();
+  
+  if(angle > 0){ //girar para a direita
+    gpioWrite(IN1, 1);
+    gpioWrite(IN2, 0);
+    gpioWrite(IN3, 0);
+    gpioWrite(IN4, 1);
+  }
+  else{ //girar para a esquerda
+    gpioWrite(IN1, 0);
+    gpioWrite(IN2, 1);
+    gpioWrite(IN3, 1);
+    gpioWrite(IN4, 0);
   }
 
-  motors_stop(user_motor);
+    if (angle > 360) {
+    return 0;
+  }
 
-  if (user_motor.direction == 1)
-    rigth(user_motor);
-  else // quando direction é 1, significa que o robo vai virar para direita.
-    left(user_motor);
+    if (angle < -360) {
+    return 0;
+  }
 
-  time_spin(user_motor);
-  motors_stop(user_motor);
+  //funcoes spin com angulo indeterminado
 
+  if(angle == 999){
+    spin_start();
+    return 0;
+  }
+
+  if(angle == -999){
+    spin_start();
+    return 0;
+  }
+  
+  angle = angle < 0 ? -angle : angle; //transforma em positivo
+
+  spin_start();
+
+  distance_counter = 0;
+  while(distance_counter < (angle / 6??)){  //fator empirico: 1 grau = APROX. 2.8 cm de deslocamento dos encoders
+    usleep(100000);
+  }
+  
+  stop();
   return 0;
 }
+  
 
-// funções right (escrito rigth errôneamente) e left abaixo.
+int spin_by_ticks(int ticks) {
+    stop();
 
-static void left(motor user_motor) {
+    if (ticks > 0) { // girar para a direita
+        gpioWrite(IN1, 1);
+        gpioWrite(IN2, 0);
+        gpioWrite(IN3, 0);
+        gpioWrite(IN4, 1);
+    } else { // girar para a esquerda
+        gpioWrite(IN1, 0);
+        gpioWrite(IN2, 1);
+        gpioWrite(IN3, 1);
+        gpioWrite(IN4, 0);
+    }
 
-  gpioWrite(user_motor.left_motor[PIN_2], 1);
-  gpioPWM(user_motor.left_motor[PWM], user_motor.velocity);
+    ticks = ticks < 0 ? -ticks : ticks; // transforma em positivo
 
-  gpioWrite(user_motor.right_motor[PIN_1], 1);
-  gpioPWM(user_motor.right_motor[PWM], user_motor.velocity);
-}
+    spin_start();
 
-static void rigth(const motor user_motor) {
+    distance_counter = 0;
+    while (distance_counter < ticks) {
+        usleep(100000);
+    }
 
-  gpioWrite(user_motor.left_motor[PIN_1], 1);
-  gpioPWM(user_motor.left_motor[PWM], user_motor.velocity);
-
-  gpioWrite(user_motor.right_motor[PIN_2], 1);
-  gpioPWM(user_motor.right_motor[PWM], user_motor.velocity);
-}
-
-static long int time_spin(const motor user_motor) {
-
-  int time;
-
-  // isso calcula o tempo necessário para girar o angulo informado.
-  // o calculo de "time" veio de uma formula deduzida manualmente. As infos
-  // inseridas apenas substituem as variaveis encontradas.
-
-  time = (int)((user_motor.theta * LARGE) / (user_motor.velocity * 2 * MAX_V) *
-               SECOND);
-  usleep(time);
-
-  return time;
+    stop();
+    return 0;
 }
