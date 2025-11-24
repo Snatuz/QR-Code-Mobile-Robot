@@ -17,35 +17,9 @@ std::vector<std::string> splitString(const std::string& str, char delimiter = ',
         if (!token.empty()) { // Adicionado: não guarda "tokens" vazios (ex: "1,,2")
             tokens.push_back(token);
         }
-    }
-    return tokens;
-}
 
 // -----------------------------------------------------------------
-// FUNÇÕES DE EXEMPLO (F e S)
-// -----------------------------------------------------------------
-// Elas recebem um 'int'. Note que o vetor guarda 'string',
-// então teremos que converter de "90" (string) para 90 (int).
-
-/**
- * @brief Função 'F' (ex: mover para frente/trás)
- */
-void F(int valor) {
-    std::cout << "  -> Chamando F(int) com valor: " << valor << std::endl;
-    // Coloque sua lógica real aqui (ex: comandoMotor(valor);)
-}
-
-/**
- * @brief Função 'S' (ex: girar servo)
- */
-void S(int valor) {
-    std::cout << "  -> Chamando S(int) com valor: " << valor << std::endl;
-    // Coloque sua lógica real aqui (ex: comandoServo(valor);)
-}
-
-
-// -----------------------------------------------------------------
-// FUNÇÃO 2: Processador de Comandos (A NOVA LÓGICA)
+// FUNÇÃO 2: Processador de Comandos 
 // -----------------------------------------------------------------
 
 /**
@@ -84,36 +58,16 @@ void processarComandos(const std::vector<std::string>& comandos) {
 
         // --- Passo 3: Chamar a função correta (F ou S) ---
         if (chamarFuncaoF) {
-            F(valorNumerico);
+            forward(valorNumerico);
+            usleep(500000); // Pausa de 0.5 segundos entre comandos
         } else {
-            S(valorNumerico);
+            spin(valorNumerico);
+            usleep(500000); // Pausa de 0.5 segundos entre comandos
         }
-
-        // --- Passo 4: Alternar a próxima função ---
-        // Inverte o valor do booleano (true vira false, false vira true)
+        // Alterna a função para a próxima iteração
         chamarFuncaoF = !chamarFuncaoF;
 
     } // Fim do loop 'for'
 
     std::cout << "Processamento de comandos concluido." << std::endl;
-}
-
-
-// --- Função principal (main) para testar tudo ---
-int main() {
-    // String vinda do QR Code (exemplo 1)
-    std::string qrCodeData1 = "1,90,2,-90,E,100,200"; // O "100" e "200" serão ignorados
-
-    std::cout << "--- Teste 1 ---" << std::endl;
-    std::vector<std::string> vetorDeComandos1 = splitString(qrCodeData1);
-    processarComandos(vetorDeComandos1);
-
-    std::cout << "\n--- Teste 2 ---" << std::endl;
-    // Exemplo sem o "E" (processa até o fim)
-    std::string qrCodeData2 = "10,20,30,40";
-    std::vector<std::string> vetorDeComandos2 = splitString(qrCodeData2);
-    processarComandos(vetorDeComandos2);
-
-    return 0;
-    //qrCodeData.clear(); // Limpa a string para o próximo QR Code
 }
