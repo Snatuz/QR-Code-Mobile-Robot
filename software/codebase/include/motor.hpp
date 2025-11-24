@@ -1,34 +1,38 @@
-#ifndef motor_HPP
-#define motor_HPP
-
-#define RANGE 100
-#define PWM 2
-#define PIN_1 0
-#define PIN_2 1
-#define LARGE 10 // LARGE e a distancia de uma roda até a outra
-#define MAX_V 0.47645f
+#ifndef MOTOR_HPP
+#define MOTOR_HPP
 #define SECOND 1000000
 
-/* Os membros left_motor e right_motor contem o numero
- * de dos pinos que ligam na ponte H onde cada indice
- * do vetor tem usa função explicada pelos macros PIN_1
- * PIN_2 e PWM
- */
 
 struct motor {
-
-  unsigned short int direction;
-  unsigned int left_motor[3];
-  unsigned int right_motor[3];
-  unsigned int theta;
+  
+  unsigned int PWM;
+  unsigned int previous_PWM = 0;
   unsigned int velocity;
-  unsigned int ftime; // define quanto tempo andar pra frente
+  unsigned int encoder_counter = 0;
+  unsigned int previous_encoder_counter = 0; 
+  float error;
+  float previous_error;
+  float correction; 
+  float derivative;
+  float integral;
+  
 } typedef motor;
 
-int spin(motor user_motor);
 
-void motors_stop(motor user_motor);
+motor l_motor;
+motor r_motor;
+motor *left_motor = &l_motor;
+motor *right_motor = &r_motor;
+float KP = 0;
+float KI = 0;
+float KD = 0;
+float setpoint = 0;
 
-int forward(motor user_motor);
+
+int spin();
+
+void stop();
+
+int forward();
 
 #endif
