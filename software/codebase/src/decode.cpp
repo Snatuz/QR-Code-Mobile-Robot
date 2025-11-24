@@ -115,4 +115,5 @@ int main() {
     processarComandos(vetorDeComandos2);
 
     return 0;
+    //qrCodeData.clear(); // Limpa a string para o próximo QR Code
 }
