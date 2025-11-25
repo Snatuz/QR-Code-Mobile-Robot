@@ -29,10 +29,12 @@ float KD = 0;
 float setpoint = 0;
 
 
-int spin();
+int spin(int angle);
+void spin_start();
+int spin_by_ticks(int ticks);
 
 void stop();
 
-int forward();
+int forward(int distance);
 
 #endif
