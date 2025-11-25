@@ -6,7 +6,7 @@ int QR_search() {
     distance_counter = 0;
 
     while(distance_counter < ???? && (qr_code_data == "empty")){ 
-      qr_code_data = //funcao de processar o qrcode(); aqui
+      qr_code_data = get_qrcode();
 
       usleep(50000);
     }
