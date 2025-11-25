@@ -1,3 +1,12 @@
+
+///AQUIIIIIIIIIIIII
+
+
+
+
+
+
+
 //funcao que controla a movimentacao do robo enquanto le o QR code e retorna a string lida.
 std::string qr_code_data = "empty";
 int QR_search() {
