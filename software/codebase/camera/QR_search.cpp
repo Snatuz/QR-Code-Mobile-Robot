@@ -1,16 +1,21 @@
 #include "camera.hpp"
 
+#include <iostream>
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/objdetect.hpp> // QRCodeDetector
 #include <opencv2/videoio.hpp>
+#include <string.h>
 
 static std::string get_qrcode() {
 
   // funcao que controla a movimentacao do robo enquanto le o QR code e retorna
   // a string lida.
-  std::string qr_code_data = "empty";
+  std::string qr_code_data;
+
   int QR_search() {
+
+    qr_code_data = "empty";
 
     spin(-999); // gira o robo indefinidamente pra esquerda
     distance_counter = 0;
