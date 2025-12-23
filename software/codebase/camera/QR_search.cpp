@@ -35,7 +35,7 @@ static std::string get_qrcode();
     std::cout << "\nQR Code lido: " << qr_code_data << std::endl;
 
     stop();
-
+    usleep(1000000);
 
     int temp_distance = -distance_counter;
     spin_by_ticks(temp_distance); // gira o robo de volta à posicao inicial
