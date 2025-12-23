@@ -34,16 +34,16 @@ int spin (int angle) {
     gpioWrite(IN4, 0);
   }
 
-    if (angle > 360) {
+    if (angle > 360 && angle != 999)  {
+    std::cout << "\nvoce inseriu um angulo inadequado, entao esse comando nao foi executado. Prosseguindo...\n";
     return 0;
   }
 
-    if (angle < -360) {
+    if (angle < -360 && angle != -999) {
+    std::cout << "\nvoce inseriu um angulo inadequado, entao esse comando nao foi executado. Prosseguindo...\n";
     return 0;
   }
-
   //funcoes spin com angulo indeterminado
-
   if(angle == 999){
     spin_start();
     return 0;
@@ -59,14 +59,14 @@ int spin (int angle) {
   spin_start();
 
   distance_counter = 0;
-  while(distance_counter < (angle / 6??)){  //fator empirico: 1 grau = APROX. 2.8 cm de deslocamento dos encoders
+  while(distance_counter < (angle / 6.3)){
     usleep(100000);
   }
   
   stop();
   return 0;
 }
-  
+
 
 int spin_by_ticks(int ticks) {
     stop();
